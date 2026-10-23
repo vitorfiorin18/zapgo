@@ -1,0 +1,527 @@
+/* === VARIÁVEIS DE DESIGN PREMIUM === */
+:root {
+    --bg-body: #0b0f19;       /* Fundo profundo escuro */
+    --bg-container: #111827;  /* Fundo do painel central */
+    --bg-card: #1f2937;       /* Fundo dos cartões de config */
+    --primary: #8b5cf6;       /* Roxo Violet Neon */
+    --primary-hover: #7c3aed; 
+    --success: #10b981;       /* Verde Esmeralda */
+    --error: #ef4444;         /* Vermelho Coral */
+    --text-main: #f3f4f6;     /* Branco acinzentado */
+    --text-sub: #9ca3af;      /* Cinza claro descritivo */
+    --border: #374151;        /* Borda escura suave */
+    --radius: 12px;
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+html {
+    background-color: var(--bg-body);
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-body); 
+    color: var(--text-main);
+    width: 460px;
+    margin: 0;
+    padding: 0;                  /* Titlebar ocupa o topo sem padding */
+    display: flex;
+    flex-direction: column;      /* Titlebar em cima, container embaixo */
+    border: 1.5px solid rgba(139, 92, 246, 0.4);
+    box-shadow: inset 0 0 16px rgba(139, 92, 246, 0.12),
+                0 0 40px rgba(139, 92, 246, 0.08);
+}
+
+.container {
+    width: 100%;
+    background-color: var(--bg-container);
+    border-radius: 0 0 14px 14px; /* Cantos redondos apenas embaixo (topo é da titlebar) */
+    border: none;
+    border-top: 1px solid var(--border);
+    padding: 16px 18px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 
+                0 0 15px 1px rgba(139, 92, 246, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: popup-enter 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* === BARRA DE TÍTULO (JANELA DE APP) === */
+.window-titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #161d2e, #1a1f30);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    padding: 8px 14px;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.titlebar-spacer {
+    width: 60px; /* Espelha o botão para manter o título centralizado */
+}
+
+.window-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.4px;
+}
+
+/* Botão Fechar da titlebar */
+.titlebar-close {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 3px 12px;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+    width: 60px;
+    text-align: center;
+}
+
+.titlebar-close:hover {
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Switch de pausa de privacidade — empurrado para a direita */
+.privacy-pause-switch {
+    margin-left: auto;
+}
+
+/* Estado pausado: esmaece o corpo do card de privacidade */
+.privacy-paused .card-body {
+    opacity: 0.45;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.card-body {
+    transition: opacity 0.3s ease;
+}
+
+@keyframes popup-enter {
+    from { opacity: 0; transform: translateY(6px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* === CABEÇALHO === */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-logo {
+    width: 36px;
+    height: 36px;
+    filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.3));
+}
+
+.header-titles h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, #c084fc, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.version-tag {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-sub);
+}
+
+/* === INDICADOR DE STATUS (LED PULSE) === */
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#status-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-sub);
+    letter-spacing: 0.3px;
+}
+
+.pulse-led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--success);
+    box-shadow: 0 0 8px var(--success);
+    transition: 0.3s;
+}
+
+.pulse-led.pulse-active {
+    animation: led-glow 2s infinite ease-in-out;
+}
+
+.pulse-led.pulse-inactive {
+    background-color: var(--error) !important;
+    box-shadow: 0 0 8px var(--error) !important;
+    animation: none;
+}
+
+@keyframes led-glow {
+    0%, 100% { transform: scale(1); opacity: 0.7; box-shadow: 0 0 6px var(--success); }
+    50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 12px var(--success); }
+}
+
+/* === DASHBOARD E CARTÕES === */
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.config-card {
+    background-color: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.config-card:hover {
+    border-color: rgba(139, 92, 246, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    background-color: rgba(255, 255, 255, 0.02);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+
+
+.card-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--primary);
+}
+
+.card-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--text-main);
+}
+
+.card-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.section-hint {
+    font-size: 10px;
+    color: var(--text-sub);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.02);
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* === ENTRADA DE TEXTO (NOME) === */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.input-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-header label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--text-main);
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+    font-family: 'Outfit', sans-serif;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+input[type="text"]:focus {
+    border-color: var(--primary);
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+}
+
+input[type="text"]:disabled {
+    cursor: not-allowed;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.options-divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* === RóTULO DO GRUPO DE ESTILOS === */
+.style-group-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-sub);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: -4px;
+}
+
+/* === TAG DE EXEMPLO DE ESTILO === */
+.style-example {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--primary);
+    opacity: 0.8;
+    margin-left: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+/* === PRÉVIA DE ASSINATURA === */
+.name-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 18px;
+}
+
+.signature-preview {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.signature-preview.visible {
+    opacity: 1;
+}
+
+.preview-label {
+    font-size: 10px;
+    color: var(--text-sub);
+    font-weight: 500;
+}
+
+.preview-text {
+    font-size: 11px;
+    color: var(--primary);
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.preview-text b {
+    font-weight: 600;
+}
+
+.preview-text i {
+    font-style: italic;
+}
+
+.wp-code, .wp-code-block {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+}
+
+.wp-code-block {
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.wp-quote {
+    border-left: 3px solid var(--primary);
+    padding-left: 6px;
+    margin-left: 2px;
+    opacity: 0.9;
+}
+
+.char-counter {
+    font-size: 10px;
+    color: var(--text-sub);
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+/* === LINHAS DE OPÇÕES (SWITCHES) === */
+.option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: opacity 0.3s ease;
+}
+
+.option-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.option-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.option-desc {
+    font-size: 11px;
+    color: var(--text-sub);
+}
+
+/* === INTERRUPTORES (SWITCHES / SLIDERS) === */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 38px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: .2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #cbd5e1;
+    transition: .2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+input:checked + .slider {
+    background-color: var(--primary);
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+    background-color: #ffffff;
+}
+
+input:disabled + .slider {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* === RODAPÉ E BOTÕES === */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+}
+
+.save-indicator {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--success);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.save-indicator.visible {
+    opacity: 0.8;
+}
+
+button#salvar {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2);
+    font-family: 'Outfit', sans-serif;
+}
+
+button#salvar:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(139, 92, 246, 0.3);
+}
+
+button#salvar:active {
+    transform: translateY(0);
+}

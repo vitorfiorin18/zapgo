@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ZapGO - Configurações</title>
+    <link rel="stylesheet" href="popup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- BARRA DE TÍTULO (Efeito de Janela de App) -->
+    <div class="window-titlebar">
+        <div class="titlebar-spacer"></div>
+        <span class="window-title">ZapGO — Configurações</span>
+
+    </div>
+
+    <div class="container">
+        <!-- CABEÇALHO -->
+        <header>
+            <div class="header-left">
+                <img src="icon48.png" alt="ZapGO Logo" class="header-logo">
+                <div class="header-titles">
+                    <h2>ZapGO</h2>
+                    <span class="version-tag" id="version-tag">v1.9</span>
+                </div>
+            </div>
+
+            <div class="status-indicator">
+                <div class="pulse-led" id="status-led"></div>
+                <span id="status-text">Ativada</span>
+                <label class="switch">
+                    <input type="checkbox" id="ativo">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </header>
+
+        <!-- PAINEL PRINCIPAL -->
+        <main class="dashboard">
+
+            <!-- CARD: CHAT E ASSINATURA -->
+            <section class="config-card">
+                <div class="card-header">
+                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <h3>Chat e Assinatura</h3>
+                </div>
+
+                <div class="card-body">
+                    <!-- NOME E ATIVAÇÃO -->
+                    <div class="input-group">
+                        <div class="input-header">
+                            <label for="nome">Assinatura Automática</label>
+                            <label class="switch">
+                                <input type="checkbox" id="usarAssinatura">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <input type="text" id="nome" placeholder="Seu nome para assinatura..." autocomplete="off"
+                            maxlength="40">
+                        <div class="name-footer">
+                            <div class="signature-preview" id="signature-preview">
+                                <span class="preview-label">Prévia:</span>
+                                <span class="preview-text" id="preview-text"></span>
+                            </div>
+                            <span class="char-counter" id="char-counter">0/40</span>
+                        </div>
+                    </div>
+
+                    <div class="options-divider"></div>
+
+                    <!-- 1ª LETRA MAIÚSCULA (independente da assinatura) -->
+                    <div class="option-row" id="row-maiuscula-standalone">
+                        <div class="option-info">
+                            <span class="option-title">1ª Letra Maiúscula</span>
+                            <span class="option-desc">Corrige minúsculas automáticas</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="maiuscula">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="options-divider"></div>
+
+                    <!-- OPÇÕES DE ESTILO (dependem da assinatura) -->
+                    <div class="style-group-label">Estilos de Assinatura</div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Negrito <span class="style-example">*texto*</span></span>
+                            <span class="option-desc">Envolve nome com *</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="bold">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Itálico <span class="style-example">_texto_</span></span>
+                            <span class="option-desc">Envolve nome com _</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="italic">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Monoespaçado <span class="style-example">`texto`</span></span>
+                            <span class="option-desc">Estilo código com `</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="code">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Bloco de Código <span
+                                    class="style-example">```texto```</span></span>
+                            <span class="option-desc">Bloco fixo com três crases</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="codeBlock">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Citação <span class="style-example">&gt; texto</span></span>
+                            <span class="option-desc">Formatação de mensagem citada</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="quote">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Pular Linha</span>
+                            <span class="option-desc">Quebra linha após a assinatura</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="newline">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARD: PRIVACIDADE VISUAL -->
+            <section class="config-card">
+                <div class="card-header">
+                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                        </path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                    <h3>Privacidade (Desfoque)</h3>
+                    <label class="switch privacy-pause-switch" title="Pausar/Ativar todos os desfoques">
+                        <input type="checkbox" id="blurAtivo" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="card-body">
+                    <p class="section-hint">Passe o cursor sobre os itens no WhatsApp para revelar.</p>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Fotos da Lista</span>
+                            <span class="option-desc">Fotos dos contatos no menu lateral</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="blurLista">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Nomes dos Contatos</span>
+                            <span class="option-desc">Nomes na lista lateral e chat</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="blurNomes">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Última Mensagem</span>
+                            <span class="option-desc">Visualizações prévias na lateral</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="blurPreview">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Foto do Topo</span>
+                            <span class="option-desc">Foto de perfil no cabeçalho do chat</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="blurHeader">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="option-row">
+                        <div class="option-info">
+                            <span class="option-title">Mídias do Chat</span>
+                            <span class="option-desc">Fotos, vídeos e stickers do chat</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="blurMidia">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- RODAPÉ -->
+        <footer>
+            <span class="save-indicator">✓ Alterações salvas em tempo real</span>
+            <button id="salvar">Fechar</button>
+        </footer>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
